@@ -1,5 +1,6 @@
 from Stocks import download_data, graficar_precios, grafica_comparar
 
+tickers=["MSFT","BRK-B"]
 def main():
     tickers=["MSFT","BRK-B"]
     data = download_data(tickers)

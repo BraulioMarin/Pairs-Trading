@@ -3,13 +3,14 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import adfuller
 import pandas as pd
+from main import tickers
 
-symbols = ['F', 'GM']
+
 start_date = '2014-02-23'
-stocks = yf.download(symbols, start=start_date)['Close']
+stocks = yf.download(tickers, start=start_date)['Close']
 
-X = sm.add_constant(stocks['GM']) 
-model = sm.OLS(stocks['F'], X)
+X = sm.add_constant(stocks[tickers[0]])
+model = sm.OLS(stocks[tickers[1]], X)
 results = model.fit()
 
 residuals = results.resid
