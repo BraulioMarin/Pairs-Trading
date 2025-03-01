@@ -1,4 +1,4 @@
-from data_loader import download_data, load_data
+from Stocks import download_data, load_data
 from cointegration_test import adf_test, test_cointegration_ols, test_cointegration_johansen
 
 tickers = ["UNP", "CSX"]
