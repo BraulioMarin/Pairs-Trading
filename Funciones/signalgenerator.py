@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from kalman_filter import KalmanFilterHedgeRatio
+from kalmanfilter import KalmanFilterHedgeRatio
 
 def generate_trading_signals(stock1, stock2, window=50, initial_hedge_ratio=1.0):
    

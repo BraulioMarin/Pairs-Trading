@@ -34,16 +34,26 @@ def plot_prices(data):
     plt.grid(True)
     plt.show()
 
-def plot_normalized(data, tickers):
-    normalized_data = data / data.iloc[0] * 100
 
+def plot_normalized(data, tickers):
     plt.figure(figsize=(14, 7))
-    plt.plot(normalized_data.index, normalized_data[tickers[0]], label=tickers[0], color='blue')
-    plt.plot(normalized_data.index, normalized_data[tickers[1]], label=tickers[1], color='orange')
-    
-    plt.title(f'Comparación de Precios Normalizados de {tickers[0]} y {tickers[1]}')
-    plt.xlabel('Fecha')
-    plt.ylabel('Índice Base 100')
-    plt.legend()
+
+    fig, ax1 = plt.subplots(figsize=(14, 7))
+
+    # Primer eje (izquierda) para la primera acción
+    ax1.set_xlabel('Fecha')
+    ax1.set_ylabel(tickers[0], color='blue')
+    ax1.plot(data.index, data[tickers[0]], label=tickers[0], color='blue')
+    ax1.tick_params(axis='y', labelcolor='blue')
+
+    # Segundo eje (derecha) para la segunda acción
+    ax2 = ax1.twinx()
+    ax2.set_ylabel(tickers[1], color='orange')
+    ax2.plot(data.index, data[tickers[1]], label=tickers[1], color='orange')
+    ax2.tick_params(axis='y', labelcolor='orange')
+
+    # Título y formato
+    plt.title(f'Comparación de Precios de {tickers[0]} y {tickers[1]}')
+    fig.tight_layout()
     plt.grid(True)
     plt.show()
