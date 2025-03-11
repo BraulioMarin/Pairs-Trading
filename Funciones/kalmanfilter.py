@@ -1,7 +1,7 @@
 import numpy as np
 
 class KalmanFilterHedgeRatio:
-    def __init__(self, q=0.01, r=0.01):
+    def __init__(self, q=0.00045, r=0.01):
         
         self.x = np.array([1.0, 0.0])  
         self.A = np.eye(2)  
