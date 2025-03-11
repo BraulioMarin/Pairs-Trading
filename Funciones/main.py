@@ -1,6 +1,6 @@
 import pandas as pd
 from Stocks import download_data, load_data, plot_normalized, plot_prices
-from cointegration_test import test_cointegration_johansen
+from cointegration_test import test_cointegration_johansen,test_cointegration_ols
 from signalgenerator import generate_trading_signals
 from backtesting import backtest_strategy
 from plotsignals import plot_trading_signals
@@ -20,13 +20,12 @@ if __name__ == "__main__":
     
     eigenvector = test_cointegration_johansen(stock1, stock2)
 
-    hedge_ratio_johansen = eigenvector[1] / eigenvector[0] if eigenvector[0] != 0 else eigenvector[1]
-
+    initial_hedge_ratio = test_cointegration_ols(stock1, stock2)[1]
     
-    signals = generate_trading_signals(stock1, stock2, initial_hedge_ratio=hedge_ratio_johansen)
+    signals = generate_trading_signals(stock1, stock2, initial_hedge_ratio=initial_hedge_ratio)
 
 
     plot_trading_signals(stock1, stock2, signals)
     backtest_strategy(signals)
 
-    print("Backtesting completado.")
+    
