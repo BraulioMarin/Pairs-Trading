@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-def backtest_strategy(signals, initial_capital=1_000_000, com=0.00125, n_shares=35, margin_call_threshold=0.5):
+def backtest_strategy(signals, initial_capital=1_000_000, com=0.00125, n_shares=360, margin_call_threshold=0.5):
     capital = initial_capital
     margin_call_level = initial_capital * margin_call_threshold  
     positions = []
@@ -20,13 +20,13 @@ def backtest_strategy(signals, initial_capital=1_000_000, com=0.00125, n_shares=
         if signals["long_stock1"].iloc[i] and signals["short_stock2"].iloc[i]:
             cost1 = n_shares * price1 * (1 + com)
             if capital >= cost1:
-                capital -= cost1  
+                capital -= cost1  + (price2*abs(-n_shares2)*com)
                 positions.append((price1, price2, n_shares, -n_shares2))
 
         elif signals["short_stock1"].iloc[i] and signals["long_stock2"].iloc[i]:
             cost2 = n_shares2 * price2 * (1 + com)
             if capital >= cost2:
-                capital -= cost2  
+                capital -= cost2  +  (price1*abs(n_shares)*com)
                 positions.append((price1, price2, -n_shares, n_shares2))
 
        
